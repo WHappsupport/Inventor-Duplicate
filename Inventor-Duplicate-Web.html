@@ -52,47 +52,105 @@
   </p>
 
   <h2>Step by step functionality of the app</h2>
-  <P>
-    1st:
-    Checks for one or more selected items:
-    If 1 item is selected it will use that item (part or assembly)
-    If no item is selected it will prompt a picker to select a part or assembly.
-    When 2 or more items are selected it will prompt the user to only select 1 part and exit the function.
-    
-    2nd:
-    Add all constraints of the selected part or assembly to a dictionary
+  <P><h3>Step 1 – Select the part or assembly</h3>
+<p>
+    The add-in checks the currently selected items:
+</p>
+<ul>
+    <li>If one item is selected, it will use that item (part or assembly).</li>
+    <li>If no item is selected, a selection picker will appear, allowing the user to select a part or assembly.</li>
+    <li>If two or more items are selected, the user will be prompted to select only one item, and the function will exit.</li>
+</ul>
 
-    3rd:
-    Copy the occurrence matrix of the original part/assembly
-    Create a second occurrence of the selected part/assembly with the copy of the original matrix
-    
-    4th:
-    Loop through all the assembly constraints and check if they are in the previously created dictionary (of the second step)
-    Reasoning that if a constraint is created first it will likely be more important than the second made constraint.
-    
-    5th:
-    Checks if the constraint from the fourth step is suppressed, if so go to the next constraint
-    
-    6th:
-    For a Mate, flush, angle and insert constraints it will copy every constraint found to the newly created occurrence.
-    Check if the newly created constraint influences the freedom of rotation.
-    If it does not influence the freedom of rotation it will remove the created constraint again.
-    For tangent and transitional constraints the add-in will not copy the constraints. (to be possibly implemented later)
-    
-    7th:
-    It will check the created part again for the following:
-    When it is a single insert constraint it will move on to the next, if anything else it will exit the function.
-    
-    8th:
-    Hide the newly created part (to not be able to select it in the next picker).
-    
-    9th:
-    Create a picker and request you to select 1 or multiple edges until pressed Esc.
-    
-    10th:
-    for each selected edge it will copy the part or assembly and re-create the constraint to the newly selected edges.
-    Exit functionality
-    
+<h3>Step 2 – Store the assembly constraints</h3>
+<p>
+    All constraints belonging to the selected part or assembly
+    are collected and stored in a dictionary.
+</p>
+
+<h3>Step 3 – Create a duplicate occurrence</h3>
+<p>
+    The occurrence matrix of the original part or assembly is copied.
+    A second occurrence of the selected part or assembly is then
+    created using the copied matrix, maintaining its original position
+    and orientation.
+</p>
+
+<h3>Step 4 – Identify the original constraints</h3>
+<p>
+    The add-in loops through all assembly constraints and checks
+    whether each constraint is present in the dictionary created
+    in Step 2.
+</p>
+<p>
+    Constraints are processed in their creation order. The reasoning
+    is that constraints created first are likely to be more important
+    than constraints created later.
+</p>
+
+<h3>Step 5 – Check whether the constraint is suppressed</h3>
+<p>
+    Each identified constraint is checked to see whether it is suppressed.
+    If a constraint is suppressed, it will be skipped and the add-in
+    will continue with the next constraint.
+</p>
+
+<h3>Step 6 – Re-create the supported constraints</h3>
+<p>
+    For Mate, Flush, Angle and Insert constraints, the add-in
+    attempts to recreate each constraint on the newly created occurrence.
+</p>
+<p>
+    After creating a constraint, the add-in checks whether it
+    influences the freedom of rotation.
+</p>
+<p>
+    If the newly created constraint does not influence the freedom
+    of rotation, it will be removed again.
+</p>
+<p>
+    Tangent and Transitional constraints are currently not copied.
+    Support for these constraint types may be implemented in a
+    future update.
+</p>
+
+<h3>Step 7 – Validate the created constraints</h3>
+<p>
+    The newly created part or assembly is checked again.
+</p>
+<p>
+    If it contains a single Insert constraint, the add-in will
+    continue to the next step. If it contains anything else,
+    the function will exit.
+</p>
+
+<h3>Step 8 – Hide the duplicate occurrence</h3>
+<p>
+    The newly created occurrence is hidden. This prevents it from
+    being selected accidentally in the next selection picker.
+</p>
+
+<h3>Step 9 – Select the target edges</h3>
+<p>
+    A new selection picker is created, prompting the user to select
+    one or multiple edges.
+</p>
+<p>
+    The user can continue selecting edges until the Escape key
+    is pressed.
+</p>
+
+<h3>Step 10 – Create duplicates for the selected edges</h3>
+<p>
+    For every selected edge, the add-in copies the part or assembly
+    and recreates the corresponding constraint using the newly
+    selected edge.
+</p>
+<p>
+    Once all selected edges have been processed, the functionality
+    exits.
+</p>
+  
 <h2>Known errors:</h2>
     <p>
       When a part from a subassembly is selected it will not recognize the constraint in the top assembly. (go to the subassembly instead)
