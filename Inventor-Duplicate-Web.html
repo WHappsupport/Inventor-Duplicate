@@ -48,8 +48,55 @@
 
   <h2>Youtube link to view</h2>
   <p>
-    YOutube link
+    https://www.youtube.com/watch?v=sLf-e7wvXFE
   </p>
+
+  <h2>Step by step functionality of the app</h2>
+  <P>
+    1st:
+    Checks for one or more selected items:
+    If 1 item is selected it will use that item (part or assembly)
+    If no item is selected it will prompt a picker to select a part or assembly.
+    When 2 or more items are selected it will prompt the user to only select 1 part and exit the function.
+    
+    2nd:
+    Add all constraints of the selected part or assembly to a dictionary
+
+    3rd:
+    Copy the occurrence matrix of the original part/assembly
+    Create a second occurrence of the selected part/assembly with the copy of the original matrix
+    
+    4th:
+    Loop through all the assembly constraints and check if they are in the previously created dictionary (of the second step)
+    Reasoning that if a constraint is created first it will likely be more important than the second made constraint.
+    
+    5th:
+    Checks if the constraint from the fourth step is suppressed, if so go to the next constraint
+    
+    6th:
+    For a Mate, flush, angle and insert constraints it will copy every constraint found to the newly created occurrence.
+    Check if the newly created constraint influences the freedom of rotation.
+    If it does not influence the freedom of rotation it will remove the created constraint again.
+    For tangent and transitional constraints the add-in will not copy the constraints. (to be possibly implemented later)
+    
+    7th:
+    It will check the created part again for the following:
+    When it is a single insert constraint it will move on to the next, if anything else it will exit the function.
+    
+    8th:
+    Hide the newly created part (to not be able to select it in the next picker).
+    
+    9th:
+    Create a picker and request you to select 1 or multiple edges until pressed Esc.
+    
+    10th:
+    for each selected edge it will copy the part or assembly and re-create the constraint to the newly selected edges.
+    Exit functionality
+    
+<h2>Known errors:</h2>
+    <p>
+      When a part from a subassembly is selected it will not recognize the constraint in the top assembly. (go to the subassembly instead)
+    </p>
 
 <footer>
     © 2026 Wander Heuvelman | Inventor Duplicate
