@@ -39,7 +39,20 @@
 
   <h2>How does it work?</h2>
   <p>
-      After installing you will see a button on the left hand corner called Duplicate.
+      This Inventor add-in aims to duplicate the part or assembly selected including all underlying constraints (if they are not suppressed).
+
+      If the constraints are suppressed then the add-in will skip these constraints.
+
+      After a constraint is copied over to the copied part it will check for the degrees of freedom, if the constraint is not influenced by the degrees of freedom the constraint is removed again.
+
+      If after all that the only constraint found is an insert constraint it will ask you to select new edges.
+
+      When you select 1 or more edges it will copy the part and constraint the part or assembly to the selected edges.
+  </p>
+
+  <h2>Youtube link to view</h2>
+  <p>
+    https://www.youtube.com/watch?v=sLf-e7wvXFE
   </p>
 
 <footer>
